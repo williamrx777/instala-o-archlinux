@@ -1,0 +1,136 @@
+Teclado Brasileiro
+Loadkeys Br-abnt2
+
+Conexao internet
+Systemctl start dhcpcd
+
+Partição de disco 
+cfdisk dos
+
+Formatando
+Mkfs.ext4 /dev/sda1
+
+Montando
+Mount -t ext4 /dev/sda1 /mnt
+
+Swap
+Mkswap /dev/sda2
+Swapon /dev/sda2
+
+Nano /etc/pacman.d/mirrorlist
+Ctrl+w busca
+Brazil
+Ctrl+k copiar
+Ctrl+u colar
+
+salvar
+
+Ctrl+x 
+shift+s
+Enter
+
+Systema base
+Pacstrap /mnt base base-devel
+
+genfstab -p /mnt >> /mnt/etc/fstab
+
+Arch-chroot  /mnt
+
+Nano  /etc/locale.gen
+Ctrl+w pesquisa
+Pt_BR.UTF-8 UTF-8
+Ctrl+x
+Shift+s
+Enter
+Locale-gen
+
+Echo LANG=pt_BR.UTF-8 > /etc/locale.conf
+Export LANG=pt_BR.UTF-8
+
+Ln -s /usr/share/zoneinfo/Brazil/
+Tab tab
+ln -s /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
+Date
+
+Senha root
+passwd
+
+Criando usuario 
+Useradd -m -g users -G wheel -s /bin/bash william
+
+Senha usuario
+Passwd william
+
+Instalando grub
+
+Pacman -S grub
+Grub-install /dev/sda
+
+Mkinitcpio -p linux
+
+Grub-mkconfig -o /boot/grub/grub.cfg
+
+Exit
+
+Desmontando as partições
+Umount -a
+
+Reboot
+
+2° parte da instalação
+
+Root
+Senha
+
+Systemctl enable dhcpcd service
+
+Systemctl start dhcpcd
+
+Pacman -S alsa-utils pulseaudio
+
+Pacman -S Xorg-server xorg-xinit xorg-server-utils
+
+Lspci l grep VGA
+
+Pacman -S xf86-video-vesa
+
+Pacman -S xf86-video-intel(opcional esse pode causa flix gravação de tela)
+
+Pacman -S mesa
+
+Pacman -S ttf-dejavu
+
+Pacman -S xorg-twm xorg-xclock xterm
+
+Startx 
+exit
+
+Interface
+Pacman -S xfce4 xfce4-goodies
+Pacman -S mate mate-extra
+Pacman -S gnome gnome-extra
+Pacman -S deepin deepin-extra
+Pacman -S cinnamon
+Pacman -S plasma
+pacman -Sy networkmanager  nm-connection-editor networkmanager-vpnc  networkmanager-pptp networkmanager-openvpn networkmanager-openconnect
+systemctl enable NetworkManager.service 
+systemctl start NetworkManager.service 
+
+Pacman -S lxdm
+
+yaourt
+# nano /etc/pacman.conf
+Adicione o repositório abaixo no fim do arquivo:
+[archlinuxfr]
+SigLevel = Never
+Server = http://repo.archlinux.fr/$arch
+Salve e saia.
+Por fim instale o pacote:
+# pacman -Sy yaourt
+
+Systemctl enable lxdm
+Systemctl enable lightdm
+Systemctl enable sddm
+Systemctl enable gdm
+Reboot
+
