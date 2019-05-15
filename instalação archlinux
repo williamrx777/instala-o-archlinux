@@ -102,7 +102,8 @@ Pacman -S ttf-dejavu
 
 Pacman -S xorg-twm xorg-xclock xterm
 
-Startx 
+pacman -S wget
+
 exit
 
 Interface
@@ -118,15 +119,13 @@ systemctl start NetworkManager.service
 
 Pacman -S lxdm
 
-yaourt
-# nano /etc/pacman.conf
-Adicione o repositório abaixo no fim do arquivo:
-[archlinuxfr]
-SigLevel = Never
-Server = http://repo.archlinux.fr/$arch
-Salve e saia.
-Por fim instale o pacote:
-# pacman -Sy yaourt
+trizen
+
+wget https://aur.archlinux.org/packages/trizen/
+tar -xf trizen.tar.gz
+cd trizen/
+enter
+makepkg -sci
 
 Systemctl enable lxdm
 Systemctl enable lightdm
@@ -134,3 +133,9 @@ Systemctl enable sddm
 Systemctl enable gdm
 Reboot
 
+Apos reiniciar 
+entra com usuario e senha
+instalando pamac 
+trizen -S pamac
+instalando octopi (plasma)
+trizen -S octopi
